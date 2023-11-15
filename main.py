@@ -8,16 +8,13 @@ import barkServer
 app = FastAPI()
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
-
 @app.post("/voice")
-def read_prompt():
+def read_prompt(prompt):
     barkServer.createVoice("this is test input voice")
     return "done"
+
+@app.get("/voice")
+def get_prompt(prompt):
+    with open ("./files/"+ prompt) as file:
+        return file
+    

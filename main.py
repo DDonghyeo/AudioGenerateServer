@@ -9,7 +9,7 @@ app = FastAPI()
 
 
 @app.post("/voice")
-def read_prompt(prompt):
+def read_prompt(prompt: str, gender: str):
     barkServer.createVoice("this is test input voice")
     return "done"
 

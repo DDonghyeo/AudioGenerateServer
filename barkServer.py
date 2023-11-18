@@ -1,20 +1,38 @@
 from bark import SAMPLE_RATE, generate_audio, preload_models
 from scipy.io.wavfile import write as write_wav
 from IPython.display import Audio
+from transformers import AutoProcessor, BarkModel
+import os
 
 # download and load all models
 preload_models()
 
 def createVoice(prompt, gender):
-    audio_array = generate_audio(prompt)
-    name = prompt + "_" + gender
-
-    if(gender == "male"):
-        voice_preset = "v2/male"
-    elif(gender == "female"):
-        voice_preset= "v2/female"
+    fileName = prompt + "_" + gender
+    if check_file_existence("./files/" + fileName + ".wav"):
+        print("파일이 이미 존재합니다.")
+        return False
     else:
-        return None
+        processor = AutoProcessor.from_pretrained("suno/bark")
+        model = BarkModel.from_pretrained("suno/bark")
 
-    write_wav("files/"+name+".wav", SAMPLE_RATE, audio_array)
+        if(gender == "male"):
+            voice_preset = "v2/ko_speaker_4"
+        elif(gender == "female"):
+            voice_preset= "v2/ko_speaker_0"
+        else:
+            return None
 
+        inputs = processor(prompt, voice_preset=voice_preset)
+
+        audio_array = model.generate(**inputs)
+        audio_array = audio_array.cpu().numpy().squeeze()    
+        
+
+        write_wav("files/" + fileName + ".wav", SAMPLE_RATE, audio_array)
+
+        return True
+
+def check_file_existence(file_name):
+    file_path = os.path.join(file_name)
+    return os.path.exists(file_path)

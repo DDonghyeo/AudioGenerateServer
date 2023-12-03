@@ -10,7 +10,7 @@ FROM python:3.9
 RUN ls
 
 # install requirements 
-RUN pip install --no-cache-dir --upgrade -r /requirements.txt
+RUN pip install --no-cache-dir --upgrade -r git+https://github.com/suno-ai/bark.git
 
 # 
 #COPY ./app /code/app

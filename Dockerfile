@@ -12,6 +12,10 @@ RUN ls
 # install requirements 
 RUN pip install --no-cache-dir --upgrade git+https://github.com/suno-ai/bark.git
 
+RUN pip install "uvicorn[standard]"
+
+RUN pip install fastapi
+
 # 
 #COPY ./app /code/app
 

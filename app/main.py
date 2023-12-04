@@ -2,7 +2,7 @@ from typing import Union
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 
-import barkServer
+import app.barkServer as barkServer
 
 
 app = FastAPI()

@@ -1,6 +1,5 @@
 from bark import SAMPLE_RATE, generate_audio, preload_models
 from scipy.io.wavfile import write as write_wav
-from IPython.display import Audio
 from transformers import AutoProcessor, BarkModel
 import os
 

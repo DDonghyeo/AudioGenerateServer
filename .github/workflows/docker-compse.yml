@@ -40,7 +40,7 @@ jobs:
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
-        password: ${{ secrets.EC2_PASSWORD }} 
+        password: ${{ secrets.EC2_PASSWORD }}
         port: ${{ secrets.EC2_SSH_PORT }}
         timeout: 60s
         script: |
